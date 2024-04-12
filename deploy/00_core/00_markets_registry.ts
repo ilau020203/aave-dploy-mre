@@ -10,31 +10,31 @@ const func: DeployFunction = async function ({
   ...hre
 }: HardhatRuntimeEnvironment) {
   const { deploy } = deployments;
-  const { deployer, addressesProviderRegistryOwner } = await getNamedAccounts();
+  // const { deployer, addressesProviderRegistryOwner } = await getNamedAccounts();
 
-  const poolAddressesProviderRegistryArtifact = await deploy(
-    "PoolAddressesProviderRegistry",
-    {
-      from: deployer,
-      args: [deployer],
-      ...COMMON_DEPLOY_PARAMS,
-    }
-  );
+  // const poolAddressesProviderRegistryArtifact = await deploy(
+  //   "PoolAddressesProviderRegistry",
+  //   {
+  //     from: deployer,
+  //     args: [deployer],
+  //     ...COMMON_DEPLOY_PARAMS,
+  //   }
+  // );
 
-  const registryInstance = (
-    (await hre.ethers.getContractAt(
-      poolAddressesProviderRegistryArtifact.abi,
-      poolAddressesProviderRegistryArtifact.address
-    )) as PoolAddressesProviderRegistry
-  ).connect(await hre.ethers.getSigner(deployer));
+  // const registryInstance = (
+  //   (await hre.ethers.getContractAt(
+  //     poolAddressesProviderRegistryArtifact.abi,
+  //     poolAddressesProviderRegistryArtifact.address
+  //   )) as PoolAddressesProviderRegistry
+  // ).connect(await hre.ethers.getSigner(deployer));
 
-  await waitForTx(
-    await registryInstance.transferOwnership(addressesProviderRegistryOwner)
-  );
+  // await waitForTx(
+  //   await registryInstance.transferOwnership(addressesProviderRegistryOwner)
+  // );
 
-  deployments.log(
-    `[Deployment] Transferred ownership of PoolAddressesProviderRegistry to: ${addressesProviderRegistryOwner} `
-  );
+  // deployments.log(
+  //   `[Deployment] Transferred ownership of PoolAddressesProviderRegistry to: ${addressesProviderRegistryOwner} `
+  // );
   return true;
 };
 
