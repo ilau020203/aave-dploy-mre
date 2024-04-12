@@ -37,11 +37,11 @@ const func: DeployFunction = async function ({
     );
   console.log("Initialized PoolConfigurator Implementation");
 
-  await deploy(RESERVES_SETUP_HELPER_ID, {
-    from: deployer,
-    args: [],
-    contract: "ReservesSetupHelper",
-  });
+  // await deploy(RESERVES_SETUP_HELPER_ID, {
+  //   from: deployer,
+  //   args: [],
+  //   contract: "ReservesSetupHelper",
+  // });
 
   return true;
 };

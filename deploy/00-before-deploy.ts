@@ -9,10 +9,10 @@ import { MARKET_NAME } from "../helpers/env";
  */
 
 const func: DeployFunction = async function () {
-  const balances = await getWalletBalances();
-  console.log("\nAccounts");
-  console.log("========");
-  console.table(balances);
+  // const balances = await getWalletBalances();
+  // console.log("\nAccounts");
+  // console.log("========");
+  // console.table(balances);
 };
 
 func.tags = ["before-deploy"];

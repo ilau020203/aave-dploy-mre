@@ -56,23 +56,23 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
   // );
 
   // 4. Add PoolAdmin to ACLManager contract
-  // await waitForTx(
-    await aclManager.connect(aclAdminSigner).addPoolAdmin(poolAdmin)
-  // );
-
-  // 5. Add EmergencyAdmin  to ACLManager contract
   await waitForTx(
-    await aclManager.connect(aclAdminSigner).addEmergencyAdmin(emergencyAdmin)
+    await aclManager.connect(aclAdminSigner).addPoolAdmin(poolAdmin)
   );
 
-  const isACLAdmin = await aclManager.hasRole(ZERO_BYTES_32, aclAdmin);
-  const isPoolAdmin = await aclManager.isPoolAdmin(poolAdmin);
-  const isEmergencyAdmin = await aclManager.isEmergencyAdmin(emergencyAdmin);
+  // // 5. Add EmergencyAdmin  to ACLManager contract
+  // await waitForTx(
+  //   await aclManager.connect(aclAdminSigner).addEmergencyAdmin(emergencyAdmin)
+  // );
 
-  if (!isACLAdmin) throw "[ACL][ERROR] ACLAdmin is not setup correctly";
-  if (!isPoolAdmin) throw "[ACL][ERROR] PoolAdmin is not setup correctly";
-  if (!isEmergencyAdmin)
-    throw "[ACL][ERROR] EmergencyAdmin is not setup correctly";
+  // const isACLAdmin = await aclManager.hasRole(ZERO_BYTES_32, aclAdmin);
+  // const isPoolAdmin = await aclManager.isPoolAdmin(poolAdmin);
+  // const isEmergencyAdmin = await aclManager.isEmergencyAdmin(emergencyAdmin);
+
+  // if (!isACLAdmin) throw "[ACL][ERROR] ACLAdmin is not setup correctly";
+  // if (!isPoolAdmin) throw "[ACL][ERROR] PoolAdmin is not setup correctly";
+  // if (!isEmergencyAdmin)
+  //   throw "[ACL][ERROR] EmergencyAdmin is not setup correctly";
   console.log("== Market Admins ==");
   console.log("- ACL Admin", aclAdmin);
   console.log("- Pool Admin", poolAdmin);

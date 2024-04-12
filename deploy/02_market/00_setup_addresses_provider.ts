@@ -67,46 +67,46 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
     args: ["0", deployer],
     ...COMMON_DEPLOY_PARAMS,
   });
-  const signer = await hre.ethers.getSigner(deployer);
+  // const signer = await hre.ethers.getSigner(deployer);
 
-  const addressesProviderInstance = (
-    (await hre.ethers.getContractAt(
-      addressesProviderArtifact.abi,
-      addressesProviderArtifact.address
-    )) as PoolAddressesProvider
-  ).connect(signer);
+  // const addressesProviderInstance = (
+  //   (await hre.ethers.getContractAt(
+  //     addressesProviderArtifact.abi,
+  //     addressesProviderArtifact.address
+  //   )) as PoolAddressesProvider
+  // ).connect(signer);
 
-  // 2. Set the MarketId
-  await waitForTx(
-    await addressesProviderInstance.setMarketId(poolConfig.MarketId)
-  );
+  // // 2. Set the MarketId
+  // await waitForTx(
+  //   await addressesProviderInstance.setMarketId(poolConfig.MarketId)
+  // );
 
-  // 3. Add AddressesProvider to Registry
-  await addMarketToRegistry(
-    poolConfig.ProviderId,
-    addressesProviderArtifact.address
-  );
+  // // 3. Add AddressesProvider to Registry
+  // await addMarketToRegistry(
+  //   poolConfig.ProviderId,
+  //   addressesProviderArtifact.address
+  // );
 
   // 4. Deploy AaveProtocolDataProvider getters contract
-  const protocolDataProvider = await deploy(POOL_DATA_PROVIDER, {
-    from: deployer,
-    contract: "AaveProtocolDataProvider",
-    args: [addressesProviderArtifact.address],
-    ...COMMON_DEPLOY_PARAMS,
-  });
-  const currentProtocolDataProvider =
-    await addressesProviderInstance.getPoolDataProvider();
+  // const protocolDataProvider = await deploy(POOL_DATA_PROVIDER, {
+  //   from: deployer,
+  //   contract: "AaveProtocolDataProvider",
+  //   args: [addressesProviderArtifact.address],
+  //   ...COMMON_DEPLOY_PARAMS,
+  // });
+  // const currentProtocolDataProvider =
+  //   await addressesProviderInstance.getPoolDataProvider();
 
-  // Set the ProtocolDataProvider if is not already set at addresses provider
-  if (
-    !isEqualAddress(protocolDataProvider.address, currentProtocolDataProvider)
-  ) {
-    await waitForTx(
-      await addressesProviderInstance.setPoolDataProvider(
-        protocolDataProvider.address
-      )
-    );
-  }
+  // // Set the ProtocolDataProvider if is not already set at addresses provider
+  // if (
+  //   !isEqualAddress(protocolDataProvider.address, currentProtocolDataProvider)
+  // ) {
+  //   await waitForTx(
+  //     await addressesProviderInstance.setPoolDataProvider(
+  //       protocolDataProvider.address
+  //     )
+  //   );
+  // }
 
   return true;
 };
